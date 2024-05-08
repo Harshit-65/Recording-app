@@ -53,21 +53,21 @@ const Details = () => {
   };
 
   const handleSubmit = () => {
-    // if (
-    //   !name ||
-    //   !Lastname ||
-    //   !PatientId ||
-    //   !weight ||
-    //   !age ||
-    //   !height ||
-    //   !gender
-    // ) {
-    //   alert("Please fill in all mandatory fields");
-    //   return;
-    // } else {
-    resetForm();
-    navigation.navigate("flashcard");
-    // }
+    if (
+      !name ||
+      !Lastname ||
+      !PatientId ||
+      !weight ||
+      !age ||
+      !height ||
+      !gender
+    ) {
+      alert("Please fill in all mandatory fields");
+      return;
+    } else {
+      resetForm();
+      navigation.navigate("flashcard");
+    }
   };
 
   return (

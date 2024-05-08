@@ -22,7 +22,7 @@ const Flashcard = () => {
   const currentVarn = data[currentIndex];
   const soundObject = useRef(new Audio.Sound());
 
-  const allRecordings = [];
+  const [allRecordings, setAllRecordings] = useState([]);
 
   const startRecording = async () => {
     console.log("Start recording...");
@@ -47,11 +47,19 @@ const Flashcard = () => {
     const fileUri = FileSystem.documentDirectory + filename;
     await FileSystem.moveAsync({ from: uri, to: fileUri });
     console.log("Recording saved to file:", fileUri);
+    setAllRecordings((prevRecordings) => [...prevRecordings, fileUri]);
+    console.log("All recordings:");
+    allRecordings.forEach((recordinsg, index) => {
+      console.log(`Recording ${index + 1}: ${recordinsg}`);
+    });
+
     setRecordings([fileUri]);
   };
   const navigateToNextVarn = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
-    setRecordings([]);
+    if (currentIndex + 1 >= varnamala.length) {
+      navigation.navigate("Results", { recordingFileUris: allRecordings });
+    }
   };
 
   const playRecording = async (uri) => {
